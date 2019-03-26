@@ -51,14 +51,14 @@ class GlfExtension(gfParser: GfParser, language : String, equivalentTheory : MPa
         }
     }
 
-    def gf2mmt(sentence : String, cat : String, simplify : Boolean = true) : List[Term] = {
+    def gf2mmt(sentence : String, cat : String, simplify : Boolean = true, delta : Boolean = false) : List[Term] = {
         gfParser.parse(sentence, language, cat)
                 .map(_.toOMDocRec(theorymap))
                 .map(t => view match {
                     case Some(v) => controller.library.ApplyMorphs(t, v.toTerm)
                     case None => t })
                 .map(t => if (simplify) controller.simplifier(t,
-                        SimplificationUnit(theory.getInnerContext,expandDefinitions=true,fullRecursion=true)) else t)
+                        SimplificationUnit(theory.getInnerContext,expandDefinitions=delta,fullRecursion=true)) else t)
                 .distinct
     }
 }

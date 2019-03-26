@@ -46,23 +46,15 @@ object Main extends App {
         val bridge = new GlfExtension(parser, language, dpath ? "LifeLex", Some(dpath ? "LifeLexSemantics"))
         Run.controller.extman.addExtension(bridge)
 
-
-        // The knowledge is represented as a set of different possible sets of facts about the world.
-        // For example, (A and not B) or C would be represented as {{(A, true), (B, false)}, {(C, true)}}
-        // It is updated with new knowledge from every sentence.
-        var knowledge : Set[Set[(Term, Boolean)]] = Set(Set())
         while (true) {
             val input = getSentence()
             println("You said '" + input + "'")
-            val trees = bridge.gf2mmt(input, "Stmt")   // parse with the gf category 'Stmt'
+            val trees = bridge.gf2mmt(input, "Stmt", true)   // parse with the gf category 'Stmt'
 
             println("I got the following interpretations:")
             for (tree <- trees) {
                 println(bridge.present(tree))
             }
-
-            // `bridge.present` can be used to get a nicer string representation of terms.
-            println("I know already: " + knowledge.map(_.map(t => bridge.present(t._1) + (if (t._2) "ᵗ" else "ᶠ"))))
         }
     }
 
