@@ -9,13 +9,12 @@ import info.kwarc.mmt.api.uom.SimplificationUnit
 
 import scala.collection.immutable.HashMap
 
-class GlfExtension(gfParser: GfParser, language : String, equivalentTheory : MPath,
+class GlfExtension(gfParser: GfParser, language : String, languageTheory : MPath,
                    semanticsView : Option[MPath]) extends Extension {
-    println("MPATH: " + equivalentTheory)
     override def logPrefix: String = "gf"
     def present(tm : Term) : String = controller.presenter.asString(tm)
 
-    lazy val theory : Theory = controller.getO(equivalentTheory) match {
+    lazy val theory : Theory = controller.getO(languageTheory) match {
         case Some(th : Theory) => th
         case None => ???
         case _ => ???
@@ -32,7 +31,7 @@ class GlfExtension(gfParser: GfParser, language : String, equivalentTheory : MPa
 
     lazy val theorymap : Map[String, Constant] = {
         controller.simplifier(theory)
-        val consts = theory.getConstants ::: theory.getIncludesWithoutMeta.map(controller.get).collect {
+        val consts = theory.getConstants ::: theory.getIncludes.map(controller.get).collect {
             case t : Theory =>
                 controller.simplifier(t)
                 t.getConstants
