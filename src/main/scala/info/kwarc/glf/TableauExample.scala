@@ -8,10 +8,10 @@ import info.kwarc.mmt.api.objects.{OMS, Term}
 import info.kwarc.mmt.lf.ApplySpine
 
 object TableauExample extends App {
-  val archivepath = "/home/jfs/kwarc/mmt/content/MathHub"
-  val pgfpath = "COMMA/gfbridge/source/lfmtp2019/LifeExtendedLex.pgf"  // relative to archivepath
+  val archivepath = System.getProperty("user.dir") + "/MathHub"
+  val pgfpath = "COMMA/glf/source/lfmtp2019/LifeExtendedLex.pgf"  // relative to archivepath
   val language = "LifeExtendedLexEng"    // name of the concrete grammar used for parsing
-  val dpath = DPath(URI.http colon "mathhub.info") / "COMMA" / "GfBridge" / "lfmtp2019"
+  val dpath = DPath(URI.http colon "mathhub.info") / "COMMA" / "GLF" / "lfmtp2019"
 
   def getSentence() : String = {
     scala.io.StdIn.readLine("Please enter a sentence: ")
@@ -29,7 +29,7 @@ object TableauExample extends App {
     var knowledge : Set[Set[(Term, Boolean)]] = Set(Set())
     while (true) {
       val input = getSentence()
-      val trees = bridge.gf2mmt(input, "Stmt", false, false)
+      val trees = bridge.gf2mmt(input, "Stmt", true, true)
 
       if (trees.isEmpty)   // no parse tree obtained
         println("I don't understand you! (I couldn't parse the sentence with the grammar)")
@@ -44,7 +44,7 @@ object TableauExample extends App {
         println(result._2)
       }
 
-      println("Here is my believe state:")
+      println("Here is my belief state:")
       var counter = 1
       for (option <- knowledge) {
         println("  Option " + counter + ": " + option.map(t => (if (t._2) "" else "NOT ") + bridge.present(t._1)).mkString(" ;  "))

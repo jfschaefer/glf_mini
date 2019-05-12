@@ -16,8 +16,8 @@ class GlfExtension(gfParser: GfParser, language : String, languageTheory : MPath
 
     lazy val theory : Theory = controller.getO(languageTheory) match {
         case Some(th : Theory) => th
-        case None => ???
-        case _ => ???
+        case None => throw new GlfException("Could not find theory " + languageTheory)
+        case _ => throw new GlfException(languageTheory + " does not appear to be a theory")
     }
 
     lazy val view : Option[View] = semanticsView.map(controller.getO(_) match {
@@ -25,8 +25,8 @@ class GlfExtension(gfParser: GfParser, language : String, languageTheory : MPath
             controller.simplifier.apply(v)
             v
         }
-        case None => ???
-        case _ => ???
+        case None => throw new GlfException("Could not find view " + semanticsView)
+        case _ => throw new GlfException(semanticsView + " does not appear to be a view")
     })
 
     lazy val theorymap : Map[String, Constant] = {

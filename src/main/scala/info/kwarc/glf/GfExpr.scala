@@ -24,7 +24,7 @@ case class GfFun(fun : String, args : List[GfExpr]) extends GfExpr {
     private def getTerm(s : String, theorymap : Map[String, Constant]) : Term= {
         theorymap.get(s) match {
             case Some(c) => c.toTerm
-            case None => throw MmtTermMissing("Term '" + s + "' not found in theory")
+            case None => throw MmtTermMissing("Term '" + s + "' not found in theory (i.e. your semantics construction is not total)")
         }
     }
 }

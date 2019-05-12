@@ -1,18 +1,20 @@
-GFL Mini
+GLF Mini
 ---
 
-GFL (*G*rammatical *L*ogical *F*ramework) is a framework for developing natural-language semantics systems.
+GLF (*G*rammatical *L*ogical *F*ramework) is a framework for developing natural-language semantics systems.
 It combines the [Grammatical Framework](https://www.grammaticalframework.org/) and [MMT](https://uniformal.github.io/doc/)
 to support the full pipeline from natural-language parsing to semantics construction and logic development.
 
-We are in the process of developing an unified interface the creation of a natural-language semantics system.
-*GFL Mini* is intended as an easy-to-setup version that doesn't require setting up MMT and connecting to it.
+*GLF Mini* is intended as a small GLF version that can be used in a Jupyter kernel.
+
+You can find a GLF demo [here](https://gl.kwarc.info/COMMA/glf-demo-lfmtp2019)
+and a paper about GLF [here](https://kwarc.info/people/mkohlhase/submit/lfmtp-19.pdf).
 
 
 Prerequisites
 ===
 
-You need to have the [Grammatical Framework](https://www.grammaticalframework.org/) installed and `gf`
-needs to be in your path.
+TODO
 
 Note that GFL Mini has only been tested on UNIX systems.
+

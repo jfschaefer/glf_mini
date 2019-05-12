@@ -4,8 +4,6 @@ import info.kwarc.glf
 import info.kwarc.mmt.api.DPath
 import info.kwarc.mmt.api.frontend.Run
 import info.kwarc.mmt.api.utils.URI
-import info.kwarc.mmt.api.objects.{OMS, Term}
-import info.kwarc.mmt.lf.ApplySpine
 
 object Main extends App {
     override def main(args : Array[String]) = {

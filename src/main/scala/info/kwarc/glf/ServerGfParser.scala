@@ -8,7 +8,7 @@ import scala.collection.mutable.ListBuffer
 
 
 class GfServer(location : String, port : Int = 41296) {
-    val process = Process(List("gf", "--server=" + port, "--document-root=" + location))
+    val process = Process(List("gf", "--server=" + port, "--quiet", "--document-root=" + location))
     process.run
 
     def getRequest(pgfPath : String, params : Map[String, String]) : List[String] = {
@@ -17,6 +17,9 @@ class GfServer(location : String, port : Int = 41296) {
             request = request.param(param._1, param._2)
         }
         val response = request.asString
+        if (response.code == 404) {
+            throw new GlfException("Got 404 response - are you sure " + location + "/" + pgfPath + " is correct?")
+        }
         // println(response.body)
         val json = JsonParser.parse(response.body)
 
